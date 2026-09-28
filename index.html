@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>QQ飞车 · 海滨小镇 3D</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="./style.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+
+<div id="hud" class="hidden">
+  <div id="topleft">
+    <div class="lap">圈数 <b id="lap">1</b>/<span id="lapTotal">3</span></div>
+    <div class="time">时间 <b id="time">00:00.00</b></div>
+    <div class="best">最佳单圈 <span id="best">--:--.--</span></div>
+    <div class="rank">名次 <b id="rank">1</b>/<span id="rankTotal">4</span></div>
+  </div>
+  <canvas id="minimap" width="220" height="220"></canvas>
+  <div id="speedo">
+    <div id="speed">0</div><div class="unit">km/h</div>
+    <div id="gear"></div>
+  </div>
+  <div id="nitro">
+    <div class="slots"><div class="slot" id="n0"></div><div class="slot" id="n1"></div></div>
+    <div class="bar"><div id="nitroFill"></div></div>
+    <div class="lbl">集气</div>
+  </div>
+  <div id="toast"></div>
+  <div id="count"></div>
+  <div id="wrongway">反 向 行 驶</div>
+  <div id="keys">
+    ↑/W 加速 · ↓/S 刹车倒车 · ←→/AD 转向 · <b>Shift</b> 漂移 · 漂移松开瞬间按 <b>↑</b> 小喷 · 再按 <b>↑</b> 双喷 · <b>Ctrl</b> 氮气 · <b>R</b> 复位 · <b>C</b> 视角 · <b>M</b> 声音 · <b>Esc</b> 暂停
+  </div>
+  <div id="touch">
+    <div class="tl"><button data-k="left">◀</button><button data-k="right">▶</button></div>
+    <div class="tr"><button data-k="drift">漂</button><button data-k="nitro">氮</button><button data-k="up">▲</button><button data-k="down">▼</button></div>
+  </div>
+</div>
+
+<div id="menu">
+  <div class="card">
+    <div class="logo">QQ<span>飞车</span></div>
+    <div class="sub">海滨小镇 · 竞速模式 · 3 圈</div>
+    <table class="keys">
+      <tr><td>↑ / W</td><td>加速</td><td>↓ / S</td><td>刹车 / 倒车</td></tr>
+      <tr><td>← → / A D</td><td>转向</td><td>Shift</td><td>漂移（方向 + Shift）</td></tr>
+      <tr><td>Ctrl / 空格</td><td>使用氮气</td><td>R</td><td>复位到赛道</td></tr>
+      <tr><td>C</td><td>切换视角</td><td>M / Esc</td><td>静音 / 暂停</td></tr>
+    </table>
+    <div class="tips">
+      <p><b>漂移：</b>转向同时按住 Shift，车尾甩出滑行，持续漂移积攒氮气条。</p>
+      <p><b>小喷：</b>漂移结束（松开 Shift 车身回正）的瞬间点按 ↑，获得短暂加速。</p>
+      <p><b>双喷：</b>小喷后再点一次 ↑，获得第二段加速。</p>
+      <p><b>氮气：</b>氮气条满获得一个氮气（最多 2 个），按 Ctrl 释放。起步倒计时「1」时按住 ↑ 可触发起步加速。</p>
+    </div>
+    <button id="start">开 始 比 赛</button>
+    <div class="loading" id="loading">正在载入赛道…</div>
+  </div>
+</div>
+
+<div id="pause" class="hidden"><div class="card"><h2>暂停</h2><button id="resume">继续</button><button id="restart">重新开始</button></div></div>
+<div id="result" class="hidden"><div class="card"><h2 id="resTitle">完赛</h2><div id="resBody"></div><button id="again">再来一局</button></div></div>
+
+<script type="module" src="./js/main.js"></script>
+</body>
+</html>
